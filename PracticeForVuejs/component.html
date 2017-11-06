@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Vue.js Practice</title>
+</head>
+<body>
+    <div id="global-component">
+        <h3>Global component</h2>
+        <my-component></my-component>
+    </div>
+    <div id="local-component">
+        <h3>Local component</h2>
+        <parent-component></parent-component>
+    </div>
+    <div id="bad-example-for-data">
+        <h3>Bad example for data</h2>
+        <bad-component></bad-component>
+        <bad-component></bad-component>
+        <bad-component></bad-component>
+    </div>
+    <div id="good-example-for-data">
+        <h3>Good example for data</h2>
+        <good-component></good-component>
+        <good-component></good-component>
+        <good-component></good-component>
+    </div>
+    <div id="parent-to-child">
+        <h3>Parent to child</h2>
+        <p>This is parent!</p>
+        <child message="Message from parent!"></child>
+        <input v-model="parentMessage">
+        <child v-bind:message="parentMessage"></child>
+    </div>
+    <div id="child-to-parent">
+        <h3>Child to parent</h2>
+        <incrementer v-on:increment="incrementTotal"></incrementer>
+        <incrementer v-on:increment="incrementTotal"></incrementer>
+        <p>{{ total }}</p>
+    </div> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js"></script>
+    <script type="text/javascript" src="component.js"></script>
+</body>
+
+</html>
