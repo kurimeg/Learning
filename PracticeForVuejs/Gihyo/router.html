@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Router</title>
+</head>
+<body>
+    <div id="app">
+        Hello vue-router!
+        <p>
+            <router-link to="/main">Top Page</router-link>
+            <router-link to="/users">User List</router-link>
+            <router-link :to="{ name: 'user', params: { userId: 47003 }}">User Detail</router-link>
+        </p>
+        <p>
+            <router-view></router-view>
+        </p>        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script type="text/javascript" src="router.js"></script>
+</body>
+
+</html>

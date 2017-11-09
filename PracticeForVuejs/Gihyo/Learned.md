@@ -96,4 +96,14 @@ DOM要素の変更
 - v-on
 
 ### Component
-サンプルコード作成中。。。
+HTML/CSS/JavaSciptをコンポーネント化できる
+Parent Component -> Child Component：props
+Child Component -> Parent Component：emit
+
+### vue-router
+SPA実装のためのルーター機能
+画面遷移前処理などを定義できるフック関数あり
+
+### 単一ファイルコンポーネント
+.vue拡張子で定義
+HTML/CSS/JavaScriptをコンポーネント化
