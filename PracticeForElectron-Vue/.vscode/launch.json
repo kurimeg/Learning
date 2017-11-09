@@ -21,7 +21,7 @@
               "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
             },
             "runtimeArgs": [
-              "${workspaceRoot}/index.js",
+              "${workspaceRoot}./dist/electron/main.js",
               "--remote-debugging-port=9222"
             ],
             "webRoot": "${workspaceRoot}"
