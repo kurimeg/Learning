@@ -14,7 +14,7 @@ const mutations = {
 const actions = {
     login ({ commit }, payload) {
         commit('login')
-        payload.router.push({ path: 'chart'})
+        payload.router.replace('chart')
     }
 }
 
