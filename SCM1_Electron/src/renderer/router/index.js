@@ -6,7 +6,7 @@ import Chart from '@/components/Chart'
 
 Vue.use(Router)
 
-var router = new Router({
+const router = new Router({
   routes: [   
     {
       path: '/',

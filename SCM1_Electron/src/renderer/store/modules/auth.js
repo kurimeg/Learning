@@ -1,5 +1,8 @@
+import router from '@/router'
+import axios from 'axios';
+
 const state = {
-    loggedIn: false
+    loggedIn: !!localStorage.getItem('token')
 }
 
 const mutations = {
@@ -13,8 +16,21 @@ const mutations = {
   
 const actions = {
     login ({ commit }, payload) {
+        localStorage.setItem('token', 'sampletoken')
         commit('login')
-        payload.router.replace('chart')
+        router.replace('chart')
+        // axios.post('/', {
+        //     empNo: payload.empNo,
+        //     password: payload.password
+        //   })
+        //   .then((response) => {
+        //     localStorage.setItem('token', 'sampletoken')
+        //     commit('login')
+        //     router.replace('chart')
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
     }
 }
 

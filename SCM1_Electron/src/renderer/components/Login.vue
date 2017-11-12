@@ -2,7 +2,7 @@
     <div class="backimageToka">
         <div class="form">
             <div class="login-char">社員番号</div>
-            <input type="text" v-model="id" class="txtbox"></input>
+            <input type="text" v-model="empNo" class="txtbox"></input>
             <div class="login-char">パスワード</div>
             <input type="password" v-model="password" class="txtbox"></input>
             <button type="button" @click="onLogin" class="login">ログイン</button>
@@ -18,23 +18,27 @@ const { mapState, mapActions } = createNamespacedHelpers('auth')
  export default {
    data: function () {
      return {
-       id: null,
+       empNo: null,
        password: null
      }
    },
-   methods: {
-     ...mapActions([
-       'login'
-     ]),
+   beforeCreate () {
+        if (this.$store.state.isLogged) {
+            this.$router.replace('chart')
+        }
+    },
+    methods: {
+        ...mapActions([
+            'login'
+        ]),
 
-     onLogin: function () {
-       this.login({
-         id: this.id,
-         password: this.password,
-         router: this.$router
-       })
-     }
-   }
+        onLogin: function () {
+            this.login({
+                empNo: this.empNo,
+                password: this.password
+            })
+        }
+    }
 }
 </script>
 
