@@ -42,7 +42,7 @@ Vue.jsが提供している本体以外のライブラリ(vuex, vue-router...etc
 
     アプリケーションの複雑なデータ構造の永続化
 
-### 文法
+### Vue.js
 #### Vueインスタンスとデータバインディング
 Vueコンストラクタによりインスタンスを生成 ( = ViewModel )。
 ``` javascript
@@ -58,7 +58,7 @@ var vm = new Vue({
     <p>{{ name }} は {{ price }}円</p>
 </div>
 ```
- #### Computed Properties
+#### Computed Properties
 Vueインスタンスの状態から派生した値に処理を施すgetter。  
 状態の依存関係はVue.js側で把握し、必要なときのみ更新を行う。  
 ※明示的にgetter、setterを定義することもできる。
@@ -95,15 +95,118 @@ DOM要素の変更
 - v-model
 - v-on
 
-### Component
-HTML/CSS/JavaSciptをコンポーネント化できる
-Parent Component -> Child Component：props
-Child Component -> Parent Component：emit
+#### Single File Component
+HTML/CSS/JavaSciptをコンポーネント化できる。
+＝3種類のファイルに分割しない。「.vue」ファイル内でHTML/CSS/JavaSciptが完結している。
+``` javascript
+<template>
+    <p>{{ message }}</p>
+</template>
+
+<script>
+
+</script>
+    export default {
+        // Componentのdataは関数にしなければならない！ 
+        // -> 関数にしない場合、複数インスタンスが共通のオブジェクトを参照してしまうから。
+        data: function () {
+            return {
+                message: 'Hello World!'
+            }
+        }
+    }
+<style>
+    p {
+        font-size: '12px'
+    }
+</style>
+```
+- コンポーネント間の通信
+    - Parent Component -> Child Component：props
+    - Child Component -> Parent Component：emit
 
 ### vue-router
-SPA実装のためのルーター機能
-画面遷移前処理などを定義できるフック関数あり
+SPA実装のためのルーター機能を提供する。
+``` javascript
+// ルートを定義する
+import Top from '@/components/Top'
+import Main from '@/components/Main'
 
-### 単一ファイルコンポーネント
-.vue拡張子で定義
-HTML/CSS/JavaScriptをコンポーネント化
+const router = new Router({
+  routes: [   
+    {
+      path: '/',
+      component: Top
+    },
+    {
+      path: '/Main',
+      component: Main
+    }
+  ]
+})
+
+export default router
+
+// ルートコンポーネントのインスタンス作成
+new Vue({
+  components: { App },
+  router,
+  template: '<App/>'
+}).$mount('#app')
+
+// ルートコンポーネント
+<template>
+  <div id="app">
+    <router-view></router-view>
+  </div>
+</template>
+```
+#### プログラムによるルート操作
+- router.push(location, onComplete?, onAbort?)  
+    履歴を追加する。
+- router.go(n)  
+パラメーターで指定されたページへ移動する。  
+＝進むボタン、戻るボタンの実装
+- router.replace(location, onComplete?, onAbort?)  
+履歴に追加せず、画面遷移する。
+
+#### ナビゲーションガード
+リダイレクトやキャンセルによる遷移のガード。
+- グローバルガード
+    - router.beforeEach(guard)
+    - router.beforeResolve(guard) 
+    - router.afterEach(hook)
+- ルート単位ガード
+    - beforeEnter(to, from, next)
+- コンポーネント内ガード
+    - beforeRouteEnter(to, from, next)
+    - beforeRouteUpdate(to, from, next)
+    - beforeRouteLeave(to, from, next)
+
+### vuex
+コンポーネント間の状態管理を行う。
+
+#### store
+stateを保持するコンテナ。
+``` javascript
+// ルートインスタンスにstoreを渡すことで、全ての子コンポーネントから参照することができる。
+new Vue({
+  components: { App },
+  router,
+  store,
+  template: '<App/>'
+}).$mount('#app')
+```
+
+TO DO: 以下まとめる
+コンポーネントがActionをDispatchする
+ActionはCommitを行う
+MutationはStateを変更する
+レンダリングされる
+
+
+mapState、mapGetterはComputedPropatyへのマッピング
+リアクティブなレンダリングができる
+
+ミューテーションは同期
+アクションは非同期
