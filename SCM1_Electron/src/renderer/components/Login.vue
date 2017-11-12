@@ -11,7 +11,9 @@
 </template>
 
 <script>
- import { mapActions } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('auth')
 
  export default {
    data: function () {
@@ -21,16 +23,15 @@
      }
    },
    methods: {
-     ...mapActions('auth', [
+     ...mapActions([
        'login'
      ]),
 
      onLogin: function () {
-       var self = this
-       self.login({
-         mail: this.$data.id,
-         pass: this.$data.password,
-         router: self.$router
+       this.login({
+         id: this.id,
+         password: this.password,
+         router: this.$router
        })
      }
    }
